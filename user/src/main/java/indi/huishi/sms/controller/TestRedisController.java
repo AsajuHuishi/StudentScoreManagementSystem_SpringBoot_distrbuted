@@ -1,0 +1,63 @@
+package indi.huishi.sms.controller;
+
+import indi.huishi.sms.config.RedisUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * //UUID.randomUUID().toString();
+ * redis存储：
+ * http://localhost:8090/testredis/getRedis
+ * http://localhost:8090/testredis/setRedis
+ * redis共享session：
+ * http://localhost:8090/testredis/setSession?key=yhh&value=yhh_value
+ * http://localhost:8090/testredis/getSession?key=yhh
+ * http://localhost:8091/testredis1/setSession?key=yhh&value=yhh_value
+ * http://localhost:8091/testredis1/getSession?key=yhh
+ */
+@Controller
+@RequestMapping(value = "/testRedis")
+public class TestRedisController {
+    private final Logger log = LoggerFactory.getLogger(TestRedisController.class);
+    @Autowired
+    RedisUtil redisUtil;
+    @RequestMapping(value = "/setSession", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> firstResp(HttpSession session,HttpServletRequest request, @RequestParam("key") String key
+            , @RequestParam("value") String value) {
+        Map<String, Object> map = new HashMap<>();
+        request.getSession().setAttribute(key, value);
+        map.put("session_id", session.getId());
+        map.put("session_key", key);
+        map.put("session_value", value);
+        return map;
+    }
+
+    @RequestMapping(value = "/getSession", method = RequestMethod.GET)
+    @ResponseBody
+    public Object sessions(HttpSession session,HttpServletRequest request, @RequestParam("key") String key) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("session_id", session.getId());
+        map.put("session_key", key);
+        map.put("session_value", session.getAttribute(key));
+        return map;
+    }
+
+
+    @RequestMapping(value = "/getRedis", method = RequestMethod.GET)
+    @ResponseBody
+    public Object getRedis(HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        //redisTemplate2.opsForValue().get("test")
+        map.put("getRedis", redisUtil.get("test"));
+        return map;
+    }
+}

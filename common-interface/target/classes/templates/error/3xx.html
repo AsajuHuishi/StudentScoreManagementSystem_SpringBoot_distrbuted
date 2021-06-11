@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html>
+  <head>
+    <title>Title</title>
+<!--    <base th:href="${#request.getContextPath()}+'/'">-->
+    <base href="http://localhost:8080/">
+    <link type="text/css" rel="stylesheet" href="static/css/style.css">
+    <style type="text/css">
+      body {
+        overflow: hidden;
+        background-image: url("static/img/back.png");
+      }
+    </style>
+  </head>
+  <body>
+  <div style="text-align: center;">
+    <h3>您还没有登录，或者登录已过期</h3>
+    <h1 th:text="${status}"/>
+    <h1 th:text="${message}"></h1>
+    <a th:href="@{/user/login/}" style="color: red;font-size: large">返回登录页</a>
+  </div>
+  </body>
+</html>

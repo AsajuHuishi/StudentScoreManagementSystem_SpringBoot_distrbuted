@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: consul-student
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+  datasource:
+    druid:
+      aop-patterns: indi.huishi.admin.*  # 监控包的位置
+      filters: stat, wall  # 开启监控 防火墙
+      filter:
+        stat: # SQL监控
+          slow-sql-millis: 1000 # 慢查询时长
+          log-slow-sql: true    # 慢查询日志
+        wall: # 防火墙
+          enabled: true
+          config:
+            drop-table-allow: false # 不允许删表
+      stat-view-servlet: # 监控页面
+        enabled: true
+        login-username: huishi
+        login-password: 123456
+        reset-enable: false
+      web-stat-filter: # 监控web路径
+        enabled: true
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*'
+        url-pattern: /*
+  jdbc:
+    template:
+      query-timeout: 3
+
+logging:
+  level:
+    indi.huishi.shizuo.controller: info
+    indi.huishi.shizuo.interceptor: info
+    indi.huishi.shizuo.service: warn
+    indi.huishi.shizuo.dao: warn
+  file:
+    name: E:\\java_exercise\\others\\distribute_shizuo\\log_student.log
+
+
+
+

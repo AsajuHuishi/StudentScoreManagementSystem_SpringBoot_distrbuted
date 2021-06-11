@@ -1,0 +1,16 @@
+indi\huishi\sms\entity\MailInfo.class
+indi\huishi\sms\service\StudentService.class
+indi\huishi\sms\dao\StudentDao.class
+indi\huishi\sms\config\AdminWebConfig.class
+indi\huishi\sms\interceptor\LoginInterceptor.class
+indi\huishi\sms\entity\MailAddress.class
+indi\huishi\sms\config\RedisUtil.class
+indi\huishi\sms\pojo\Student.class
+indi\huishi\sms\dao\UserDao.class
+indi\huishi\sms\DemoApplication.class
+indi\huishi\sms\util\BeanUtil.class
+indi\huishi\sms\config\MyBatisPlusConfig.class
+indi\huishi\sms\config\RedisConfig.class
+indi\huishi\sms\service\UserService.class
+indi\huishi\sms\pojo\Statistics.class
+indi\huishi\sms\pojo\User.class
